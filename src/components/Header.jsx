@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const Header = () => {
     const today = new Date().toLocaleDateString("id-ID", {
         weekday: "long",
@@ -19,6 +21,24 @@ const Header = () => {
     };
 
     const todayDrink = dailyDrinks[new Date().toLocaleDateString("id-ID", { weekday: "long" })] || "Latte";
+
+    const featuredProduct = {
+        name: "Biji Kopi House Blend",
+        price: "Rp 120.000",
+        link: "/products/house-blend",
+    };
+
+    const bundle = {
+        name: "Latte + Croissant",
+        price: "Rp 50.000",
+        link: "/bundle/latte-croissant",
+    };
+
+    const testimonial = {
+        quote: "Kopi terbaik!",
+        author: "Sarah",
+        link: "/reviews",
+    };
 
     return (
         <>
@@ -81,29 +101,64 @@ const Header = () => {
                                         <div>
                                             <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Minuman Spesial Hari Ini</div>
                                             <div className="text-lg font-semibold text-gray-900 dark:text-white">{todayDrink}</div>
-                                            <button className="mt-2 text-sm text-amber-600 dark:text-amber-400 font-medium hover:underline">Pesan Sekarang</button>
+                                            <a href="/order" className="mt-2 text-sm text-amber-600 dark:text-amber-400 font-medium hover:underline" aria-label="Pesan minuman spesial">Pesan Sekarang</a>
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl border border-orange-200/50 dark:border-orange-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                                    <div className="flex items-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl border border-orange-200/50 dark:border-amber-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
                                         <div className="w-10 h-10 bg-orange-500 rounded-lg shadow-lg flex items-center justify-center mr-4">
                                             <i className="bx bx-gift text-white text-lg"></i>
                                         </div>
                                         <div>
                                             <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Program Loyalitas</div>
                                             <div className="text-lg font-semibold text-gray-900 dark:text-white">10 Stempel, Gratis 1 Kopi</div>
-                                            <button className="mt-2 text-sm text-orange-600 dark:text-orange-400 font-medium hover:underline">Gabung Sekarang</button>
+                                            <a href="/loyalty" className="mt-2 text-sm text-orange-600 dark:text-orange-400 font-medium hover:underline" aria-label="Gabung program loyalitas">Gabung Sekarang</a>
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl border border-yellow-200/50 dark:border-yellow-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                                    <div className="flex items-center p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl border border-yellow-200/50 dark:border-amber-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
                                         <div className="w-10 h-10 bg-yellow-500 shadow-lg rounded-lg flex items-center justify-center mr-4">
                                             <i className="bx bx-calendar-event text-white text-lg"></i>
                                         </div>
                                         <div>
                                             <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Acara Minggu Ini</div>
                                             <div className="text-lg font-semibold text-gray-900 dark:text-white">Workshop Barista, 28 Juni</div>
-                                            <button className="mt-2 text-sm text-yellow-600 dark:text-yellow-400 font-medium hover:underline">Daftar Sekarang</button>
+                                            <a href="/events" className="mt-2 text-sm text-yellow-600 dark:text-yellow-400 font-medium hover:underline" aria-label="Daftar acara minggu ini">Daftar Sekarang</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" data-aos-delay="700" data-aos="fade-up">
+                                    <div className="flex items-center p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200/50 dark:border-amber-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                                        <div className="w-10 h-10 bg-amber-500 shadow-lg rounded-lg flex items-center justify-center mr-4">
+                                            <i className="bx bx-shopping-bag text-white text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Produk Unggulan</div>
+                                            <div className="text-lg font-semibold text-gray-900 dark:text-white">{featuredProduct.name} - {featuredProduct.price}</div>
+                                            <a href={featuredProduct.link} className="mt-2 text-sm text-amber-600 dark:text-amber-400 font-medium hover:underline" aria-label="Beli produk unggulan">Beli Sekarang</a>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl border border-orange-200/50 dark:border-amber-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                                        <div className="w-10 h-10 bg-orange-500 rounded-lg shadow-lg flex items-center justify-center mr-4">
+                                            <i className="bx bx-package text-white text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Paket Spesial</div>
+                                            <div className="text-lg font-semibold text-gray-900 dark:text-white">{bundle.name} - {bundle.price}</div>
+                                            <a href={bundle.link} className="mt-2 text-sm text-orange-600 dark:text-orange-400 font-medium hover:underline" aria-label="Tambah paket spesial ke keranjang">Tambah ke Keranjang</a>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl border border-yellow-200/50 dark:border-amber-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                                        <div className="w-10 h-10 bg-yellow-500 shadow-lg rounded-lg flex items-center justify-center mr-4">
+                                            <i className="bx bx-book-heart text-white text-lg"></i>
+                                        </div>
+                                        <div>
+                                            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Testimoni Pelanggan</div>
+                                            <div className="text-lg font-semibold text-gray-900 dark:text-white">"{testimonial.quote}" - {testimonial.author}</div>
+                                            <a href={testimonial.link} className="mt-2 text-sm text-yellow-600 dark:text-yellow-400 font-medium hover:underline" aria-label="Beri ulasan pelanggan">Beri Ulasan</a>
                                         </div>
                                     </div>
                                 </div>
