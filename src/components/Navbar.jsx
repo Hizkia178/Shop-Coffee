@@ -1,80 +1,20 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import useNavbar from "../functions/useNavbar.jsx";
 import navbarData from "../data/navbarData.jsx";
 
 const Navbar = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [activeItem, setActiveItem] = useState(navbarData[0]?.id || 'home');
-    const [isScrolled, setIsScrolled] = useState(false);
-    const [hoveredItem, setHoveredItem] = useState(null);
-    const [clickedItem, setClickedItem] = useState(null);
-    const [theme, setTheme] = useState(() => {
-        if (typeof window !== 'undefined') {
-            return localStorage.getItem("theme") || "light";
-        }
-        return "light";
-    });
-
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            document.documentElement.classList.toggle("dark", theme === "dark");
-            localStorage.setItem("theme", theme);
-        }
-    }, [theme]);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    useEffect(() => {
-        if (clickedItem) {
-            const timer = setTimeout(() => setClickedItem(null), 200);
-            return () => clearTimeout(timer);
-        }
-    }, [clickedItem]);
-
-    useEffect(() => {
-        const currentPath = location.pathname;
-        const match = navbarData.find(item => item.href === currentPath);
-        if (match) setActiveItem(match.id);
-    }, [location]);
-
-    const toggleTheme = () => {
-        setTheme(prev => (prev === "light" ? "dark" : "light"));
-    };
-
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
-
-    const handleMenuClick = (itemId) => {
-        setActiveItem(itemId);
-        setClickedItem(itemId);
-        setIsMenuOpen(false);
-
-        const item = navbarData.find(i => i.id === itemId);
-        if (!item) return;
-
-        if (item.href?.startsWith("/")) {
-            navigate(item.href);
-        } else {
-            const section = document.getElementById(itemId);
-            if (section) {
-                section.scrollIntoView({ behavior: "smooth" });
-            }
-        }
-    };
-
-    const isActive = (itemId) => activeItem === itemId;
-    const isHovered = (itemId) => hoveredItem === itemId;
-    const isClicked = (itemId) => clickedItem === itemId;
+    const {
+        isMenuOpen,
+        isScrolled,
+        theme,
+        activeItem,
+        hoveredItem,
+        toggleTheme,
+        toggleMenu,
+        handleMenuClick,
+        isActive,
+        isHovered,
+        setHoveredItem,
+    } = useNavbar();
 
     const getButtonClass = (itemId) => {
         const baseClass = "transition-all duration-300 flex items-center gap-2 px-4 py-2 rounded-lg font-medium";
@@ -83,7 +23,7 @@ const Navbar = () => {
             return `${baseClass} text-white bg-blue-600 shadow-lg scale-105 dark:bg-blue-600 dark:text-white`;
         }
 
-        if (isHovered(itemId) || isClicked(itemId)) {
+        if (isHovered(itemId)) {
             return `${baseClass} text-white bg-blue-600 shadow-lg scale-105 dark:text-blue-400 dark:bg-blue-900/50`;
         }
 
@@ -97,7 +37,7 @@ const Navbar = () => {
             return `${baseClass} text-white bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg transform scale-105 border-l-4 border-blue-300`;
         }
 
-        if (isHovered(itemId) || isClicked(itemId)) {
+        if (isHovered(itemId)) {
             return `${baseClass} text-blue-600 bg-blue-50 shadow-lg transform scale-105 dark:text-blue-400 dark:bg-blue-900/50 border-l-4 border-blue-400`;
         }
 
@@ -138,7 +78,7 @@ const Navbar = () => {
                             <li>
                                 <button
                                     onClick={toggleTheme}
-                                    className="text-gray-900 dark:text-white hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-300 text-2xl p-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:scale-110 hover:shadow-lg"
+                                    className="text-gray-900 dark:text-white hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-300 text-2xl p-2 rounded-xl hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:scale-110 hover:shadow-lg"
                                 >
                                     <i className={`bx ${theme === 'dark' ? 'bx-sun' : 'bx-moon'}`}></i>
                                 </button>
@@ -203,15 +143,7 @@ const Navbar = () => {
                                             </div>
                                             <span className="font-medium">{item.label}</span>
                                         </div>
-
-                                        {isActive(item.id) && (
-                                            <div className="flex items-center gap-2">
-                                                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                                                <i className="bx bx-chevron-right text-xl"></i>
-                                            </div>
-                                        )}
-
-                                        {!isActive(item.id) && (isHovered(item.id) || isClicked(item.id)) && (
+                                        {(isActive(item.id) || isHovered(item.id)) && (
                                             <i className="bx bx-chevron-right text-xl opacity-70"></i>
                                         )}
                                     </button>
