@@ -116,13 +116,13 @@ const Header = () => {
                                     <div className="flex items-center gap-3 text-sm md:text-base text-gray-600 dark:text-gray-300 pl-5">
                                         <i className="bx bx-time-five text-amber-500 text-lg"></i>
                                         <span className="font-medium">Jam Operasional Hari Ini:</span>
-                                        <span className="px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-full text-sm font-medium">
+                                        <span className="px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 sm:text-xs rounded-full text-sm font-medium">
                                             {todayHours}
                                         </span>
                                     </div>
 
                                     <div className="flex items-center gap-3 text-sm md:text-base text-gray-600 dark:text-gray-300 pl-5">
-                                        <i className="bx bx-clock text-amber-500 text-lg"></i>
+                                        <i className="bx bx-time text-amber-500 text-lg"></i>
                                         <span className="font-medium">Waktu Sekarang:</span>
                                         <span className="px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-full text-sm font-medium">
                                             {currentTime}
