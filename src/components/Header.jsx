@@ -131,7 +131,7 @@ const Header = () => {
                                 </div>
 
                                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" data-aos-delay="600" data-aos="fade-up">
-                                    <div className="flex items-center p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200/50 dark:border-amber-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                                    <div className="flex items-center p-4 dark:bg-amber-900/20 rounded-xl dark:border-amber-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
                                         <div className="w-10 h-10 bg-amber-500 shadow-lg rounded-lg flex items-center justify-center mr-4">
                                             <i className="bx bx-coffee-togo text-white text-lg"></i>
                                         </div>
@@ -142,7 +142,7 @@ const Header = () => {
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl border border-orange-200/50 dark:border-amber-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                                    <div className="flex items-center p-4 bg-white dark:bg-orange-900/20 rounded-xl dark:border-amber-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
                                         <div className="w-10 h-10 bg-orange-500 rounded-lg shadow-lg flex items-center justify-center mr-4">
                                             <i className="bx bx-gift text-white text-lg"></i>
                                         </div>
@@ -153,7 +153,7 @@ const Header = () => {
                                         </div>
                                     </div>
 
-                                    <div className="flex items-center p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl border border-yellow-200/50 dark:border-amber-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                                    <div className="flex items-center p-4 dark:bg-yellow-900/20 rounded-xl  dark:border-amber-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
                                         <div className="w-10 h-10 bg-yellow-500 shadow-lg rounded-lg flex items-center justify-center mr-4">
                                             <i className="bx bx-calendar-event text-white text-lg"></i>
                                         </div>
