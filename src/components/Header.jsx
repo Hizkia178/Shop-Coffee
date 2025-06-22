@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 const Header = () => {
     const today = new Date().toLocaleDateString("id-ID", {
         weekday: "long",
@@ -9,6 +7,18 @@ const Header = () => {
     });
 
     const namaUser = "Coffee Lover";
+
+    const dailyDrinks = {
+        Minggu: "Cappuccino",
+        Senin: "Mocha",
+        Selasa: "Americano",
+        Rabu: "Latte",
+        Kamis: "Espresso",
+        Jumat: "Caramel Macchiato",
+        Sabtu: "Flat White",
+    };
+
+    const todayDrink = dailyDrinks[new Date().toLocaleDateString("id-ID", { weekday: "long" })] || "Latte";
 
     return (
         <>
@@ -69,28 +79,31 @@ const Header = () => {
                                             <i className="bx bx-coffee-togo text-white text-lg"></i>
                                         </div>
                                         <div>
-                                            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Menu Favorit</div>
-                                            <div className="text-lg font-semibold text-gray-900 dark:text-white">Latte</div>
+                                            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Minuman Spesial Hari Ini</div>
+                                            <div className="text-lg font-semibold text-gray-900 dark:text-white">{todayDrink}</div>
+                                            <button className="mt-2 text-sm text-amber-600 dark:text-amber-400 font-medium hover:underline">Pesan Sekarang</button>
                                         </div>
                                     </div>
 
                                     <div className="flex items-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl border border-orange-200/50 dark:border-orange-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
                                         <div className="w-10 h-10 bg-orange-500 rounded-lg shadow-lg flex items-center justify-center mr-4">
-                                            <i className="bx bx-star text-white text-lg"></i>
+                                            <i className="bx bx-gift text-white text-lg"></i>
                                         </div>
                                         <div>
-                                            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Promo Hari Ini</div>
-                                            <div className="text-lg font-semibold text-gray-900 dark:text-white">Beli 1 Gratis 1</div>
+                                            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Program Loyalitas</div>
+                                            <div className="text-lg font-semibold text-gray-900 dark:text-white">10 Stempel, Gratis 1 Kopi</div>
+                                            <button className="mt-2 text-sm text-orange-600 dark:text-orange-400 font-medium hover:underline">Gabung Sekarang</button>
                                         </div>
                                     </div>
 
                                     <div className="flex items-center p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl border border-yellow-200/50 dark:border-yellow-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
                                         <div className="w-10 h-10 bg-yellow-500 shadow-lg rounded-lg flex items-center justify-center mr-4">
-                                            <i className="bx bx-time-five text-white text-lg"></i>
+                                            <i className="bx bx-calendar-event text-white text-lg"></i>
                                         </div>
                                         <div>
-                                            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Jam Buka</div>
-                                            <div className="text-lg font-semibold text-gray-900 dark:text-white">07:00 - 22:00</div>
+                                            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Acara Minggu Ini</div>
+                                            <div className="text-lg font-semibold text-gray-900 dark:text-white">Workshop Barista, 28 Juni</div>
+                                            <button className="mt-2 text-sm text-yellow-600 dark:text-yellow-400 font-medium hover:underline">Daftar Sekarang</button>
                                         </div>
                                     </div>
                                 </div>
