@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Header = () => {
     const today = new Date().toLocaleDateString("id-ID", {
@@ -22,22 +22,36 @@ const Header = () => {
 
     const todayDrink = dailyDrinks[new Date().toLocaleDateString("id-ID", { weekday: "long" })] || "Latte";
 
-    const featuredProduct = {
-        name: "Biji Kopi House Blend",
-        price: "Rp 120.000",
-        link: "/products/house-blend",
+    const operatingHours = {
+        Senin: "07:00 - 21:00",
+        Selasa: "07:00 - 21:00",
+        Rabu: "07:00 - 21:00",
+        Kamis: "07:00 - 21:00",
+        Jumat: "07:00 - 22:00",
+        Sabtu: "08:00 - 22:00",
+        Minggu: "08:00 - 20:00",
     };
 
-    const bundle = {
-        name: "Latte + Croissant",
-        price: "Rp 50.000",
-        link: "/bundle/latte-croissant",
-    };
+    const todayHours = operatingHours[new Date().toLocaleDateString("id-ID", { weekday: "long" })] || "08:00 - 20:00";
 
-    const testimonial = {
-        quote: "Kopi terbaik!",
-        author: "Sarah",
-        link: "/reviews",
+    // State for real-time clock
+    const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString("id-ID"));
+
+    // Update time every second
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentTime(new Date().toLocaleTimeString("id-ID"));
+        }, 1000);
+        return () => clearInterval(timer); // Cleanup on unmount
+    }, []);
+
+    // Determine greeting based on time of day
+    const getGreeting = () => {
+        const hour = new Date().getHours();
+        if (hour < 12) return "Selamat Pagi";
+        if (hour < 16) return "Selamat Siang";
+        if (hour < 19) return "Selamat Sore";
+        return "Selamat Malam";
     };
 
     return (
@@ -65,7 +79,7 @@ const Header = () => {
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2 mb-2">
                                             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white leading-tight">
-                                                Selamat datang di Golden Hour Coffee,
+                                                {getGreeting()} di Golden Hour Coffee,
                                             </h2>
                                             <div className="animate-wave origin-bottom">👋</div>
                                         </div>
@@ -91,6 +105,29 @@ const Header = () => {
                                         </span>
                                         <span className="inline-block ml-1 animate-pulse">☕</span>
                                     </p>
+
+                                    <p className="text-base md:text-lg text-gray-700 dark:text-gray-200 leading-relaxed pl-5 border-l-4 border-amber-500/50">
+                                        Kami hadir untuk menyajikan kopi berkualitas dengan sentuhan cinta. 
+                                        <span className="inline-block ml-2 text-amber-600 dark:text-amber-400 font-semibold">
+                                            Jadilah bagian dari momen istimewa kami!
+                                        </span>
+                                    </p>
+
+                                    <div className="flex items-center gap-3 text-sm md:text-base text-gray-600 dark:text-gray-300 pl-5">
+                                        <i className="bx bx-time-five text-amber-500 text-lg"></i>
+                                        <span className="font-medium">Jam Operasional Hari Ini:</span>
+                                        <span className="px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-full text-sm font-medium">
+                                            {todayHours}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex items-center gap-3 text-sm md:text-base text-gray-600 dark:text-gray-300 pl-5">
+                                        <i className="bx bx-clock text-amber-500 text-lg"></i>
+                                        <span className="font-medium">Waktu Sekarang:</span>
+                                        <span className="px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded-full text-sm font-medium">
+                                            {currentTime}
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" data-aos-delay="600" data-aos="fade-up">
@@ -124,41 +161,6 @@ const Header = () => {
                                             <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Acara Minggu Ini</div>
                                             <div className="text-lg font-semibold text-gray-900 dark:text-white">Workshop Barista, 28 Juni</div>
                                             <a href="/events" className="mt-2 text-sm text-yellow-600 dark:text-yellow-400 font-medium hover:underline" aria-label="Daftar acara minggu ini">Daftar Sekarang</a>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" data-aos-delay="700" data-aos="fade-up">
-                                    <div className="flex items-center p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200/50 dark:border-amber-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                                        <div className="w-10 h-10 bg-amber-500 shadow-lg rounded-lg flex items-center justify-center mr-4">
-                                            <i className="bx bx-shopping-bag text-white text-lg"></i>
-                                        </div>
-                                        <div>
-                                            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Produk Unggulan</div>
-                                            <div className="text-lg font-semibold text-gray-900 dark:text-white">{featuredProduct.name} - {featuredProduct.price}</div>
-                                            <a href={featuredProduct.link} className="mt-2 text-sm text-amber-600 dark:text-amber-400 font-medium hover:underline" aria-label="Beli produk unggulan">Beli Sekarang</a>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-center p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl border border-orange-200/50 dark:border-amber-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                                        <div className="w-10 h-10 bg-orange-500 rounded-lg shadow-lg flex items-center justify-center mr-4">
-                                            <i className="bx bx-package text-white text-lg"></i>
-                                        </div>
-                                        <div>
-                                            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Paket Spesial</div>
-                                            <div className="text-lg font-semibold text-gray-900 dark:text-white">{bundle.name} - {bundle.price}</div>
-                                            <a href={bundle.link} className="mt-2 text-sm text-orange-600 dark:text-orange-400 font-medium hover:underline" aria-label="Tambah paket spesial ke keranjang">Tambah ke Keranjang</a>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-center p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-xl border border-yellow-200/50 dark:border-amber-700/50 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                                        <div className="w-10 h-10 bg-yellow-500 shadow-lg rounded-lg flex items-center justify-center mr-4">
-                                            <i className="bx bx-book-heart text-white text-lg"></i>
-                                        </div>
-                                        <div>
-                                            <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">Testimoni Pelanggan</div>
-                                            <div className="text-lg font-semibold text-gray-900 dark:text-white">"{testimonial.quote}" - {testimonial.author}</div>
-                                            <a href={testimonial.link} className="mt-2 text-sm text-yellow-600 dark:text-yellow-400 font-medium hover:underline" aria-label="Beri ulasan pelanggan">Beri Ulasan</a>
                                         </div>
                                     </div>
                                 </div>
