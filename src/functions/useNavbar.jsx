@@ -7,6 +7,7 @@ const useNavbar = () => {
     const [activeItem, setActiveItem] = useState(navbarData[0]?.id || 'home');
     const [isScrolled, setIsScrolled] = useState(false);
     const [hoveredItem, setHoveredItem] = useState(null);
+    const [clickedItem, setClickedItem] = useState(null);
     const [theme, setTheme] = useState(() => {
         if (typeof window !== 'undefined') {
             return localStorage.getItem("theme") || "light";
@@ -33,6 +34,13 @@ const useNavbar = () => {
     }, []);
 
     useEffect(() => {
+        if (clickedItem) {
+            const timer = setTimeout(() => setClickedItem(null), 200);
+            return () => clearTimeout(timer);
+        }
+    }, [clickedItem]);
+
+    useEffect(() => {
         const currentPath = location.pathname;
         const match = navbarData.find(item => item.href === currentPath);
         if (match) setActiveItem(match.id);
@@ -48,6 +56,7 @@ const useNavbar = () => {
 
     const handleMenuClick = (itemId) => {
         setActiveItem(itemId);
+        setClickedItem(itemId);
         setIsMenuOpen(false);
 
         const item = navbarData.find(i => i.id === itemId);
@@ -65,6 +74,7 @@ const useNavbar = () => {
 
     const isActive = (itemId) => activeItem === itemId;
     const isHovered = (itemId) => hoveredItem === itemId;
+    const isClicked = (itemId) => clickedItem === itemId;
 
     return {
         isMenuOpen,
@@ -72,11 +82,13 @@ const useNavbar = () => {
         theme,
         activeItem,
         hoveredItem,
+        clickedItem,
         toggleTheme,
         toggleMenu,
         handleMenuClick,
         isActive,
         isHovered,
+        isClicked,
         setHoveredItem,
     };
 };

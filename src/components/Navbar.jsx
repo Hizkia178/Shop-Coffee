@@ -8,11 +8,13 @@ const Navbar = () => {
         theme,
         activeItem,
         hoveredItem,
+        clickedItem,
         toggleTheme,
         toggleMenu,
         handleMenuClick,
         isActive,
         isHovered,
+        isClicked,
         setHoveredItem,
     } = useNavbar();
 
@@ -23,7 +25,7 @@ const Navbar = () => {
             return `${baseClass} text-white bg-blue-600 shadow-lg scale-105 dark:bg-blue-600 dark:text-white`;
         }
 
-        if (isHovered(itemId)) {
+        if (isHovered(itemId) || isClicked(itemId)) {
             return `${baseClass} text-white bg-blue-600 shadow-lg scale-105 dark:text-blue-400 dark:bg-blue-900/50`;
         }
 
@@ -37,7 +39,7 @@ const Navbar = () => {
             return `${baseClass} text-white bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg transform scale-105 border-l-4 border-blue-300`;
         }
 
-        if (isHovered(itemId)) {
+        if (isHovered(itemId) || isClicked(itemId)) {
             return `${baseClass} text-blue-600 bg-blue-50 shadow-lg transform scale-105 dark:text-blue-400 dark:bg-blue-900/50 border-l-4 border-blue-400`;
         }
 
@@ -143,7 +145,7 @@ const Navbar = () => {
                                             </div>
                                             <span className="font-medium">{item.label}</span>
                                         </div>
-                                        {(isActive(item.id) || isHovered(item.id)) && (
+                                        {(isActive(item.id) || isHovered(item.id) || isClicked(item.id)) && (
                                             <i className="bx bx-chevron-right text-xl opacity-70"></i>
                                         )}
                                     </button>
