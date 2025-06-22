@@ -235,18 +235,6 @@ const Navbar = () => {
                             <i className="bx bx-toggle-right text-2xl ml-auto"></i>
                         </button>
                     </div>
-
-                    <div className="mt-auto pt-6 border-t-2 shadow-lg border-gray-200 dark:border-gray-700">
-                        <div className="text-center p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl">
-                            <i className="bx bx-crown text-2xl text-blue-600 dark:text-blue-400 mb-2 block"></i>
-                            <p className="text-sm font-medium text-gray-900 dark:text-white mb-1">
-                                Golden Hour Coffee
-                            </p>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">
-                                © {new Date().getFullYear()} All Rights Reserved
-                            </p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </>
