@@ -51,7 +51,7 @@ const Navbar = () => {
             <nav
                 className={`bg-white p-4 fixed w-full top-0 z-50 dark:bg-gray-900 transition-all duration-300 overflow-hidden ${
                     isScrolled ? 'shadow-lg bg-white/95 dark:bg-gray-900/95' : 'shadow-lg'
-                }`}
+                }`} data-aos-duration="1000" data-aos="fade-down"
             >
                 <div className="container">
                     <div className="max-w-7xl mx-auto flex justify-between items-center">
